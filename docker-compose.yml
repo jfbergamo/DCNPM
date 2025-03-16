@@ -1,7 +1,6 @@
 version: '3'
 services:
     php:
-        # image: 'php:7.2-fpm'
         build:
             context: ./docker
             dockerfile: php.Dockerfile
@@ -28,9 +27,7 @@ services:
         restart: 'on-failure'
         environment:
             MYSQL_DATABASE: ${APP_NAME:?err}
-            MYSQL_USER: ${MYSQL_USER:?err}
-            MYSQL_PASSWORD: ${MYSQL_PASSWORD:?err}
-            MYSQL_ROOT_PASSWORD: cossimerdavaffanculo
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?err}
         volumes:
-            - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-            - ./mysql:/var/lib/mysql
+            - ./config/init.sql:/docker-entrypoint-initdb.d/init.sql
+            - ./docker/mysql:/var/lib/mysql
